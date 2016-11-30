@@ -1,4 +1,4 @@
-//函数节流
+//节流
 //throttling函数只在addEventListener执行了一次
 function throttling(fn, wait) {
     var timeout; 
@@ -17,9 +17,9 @@ function throttling(fn, wait) {
     }
 }
 
-function cb(param) {
+function cb() {
     
-    console.log('throttling succ!'+new Date().getTime()+param)
+    console.log('throttling succ!'+new Date().getTime())
 }
 
 window.addEventListener('scroll', throttling(cb, 500))
