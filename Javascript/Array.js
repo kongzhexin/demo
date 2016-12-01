@@ -24,3 +24,12 @@ Array.prototype.reduce = function(fn,initValue){
 //     b =a.reduce(function(pre,cur){
 //     return pre+cur;
 // },1)
+//---------------------------------------------------------------------------------
+//ES6 数组去重的方法 Set 与Array.from
+function unique(a){
+    return Array.from(new Set(a))
+}
+var a =[1,23,4,5,6,'23','6',5]
+var ans =unique(a);
+console.log(ans)
+//---------------------------------------------------------------------------------

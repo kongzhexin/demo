@@ -4,7 +4,7 @@ function debounce(fn,time){
     var timeout;
     //返回一个匿名函数，并不是直接执行的
     return function(){
-        clearTimeout(timeout);
+        if(timeout) clearTimeout(timeout);
         timeout =setTimeout(fn,time);
     }
 }
