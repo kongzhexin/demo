@@ -29,4 +29,9 @@ function sub (a,b){
 }
 sub.bind(o,5,4)(); //sub.bind(o)(5,4);
 //---------------------------------------------------------------------------------------------------
-//判断数组
+//经典闭包 返回函数
+var createAssigner = function(func,args){
+    return function(){
+        return func.apply(this,args)
+    }
+}

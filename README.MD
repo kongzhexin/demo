@@ -1,6 +1,8 @@
 # Introduce
 >学习Javascript、css等demo
 
+>关于underscore.js更多学习 [underscore源码解析](https://github.com/hanzichi/underscore-analysis)
+
 ----
 ## 节流与抖动
 
