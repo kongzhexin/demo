@@ -1218,7 +1218,7 @@
 
   // Is the given value `NaN`? (NaN is the only number which does not equal itself).
   _.isNaN = function(obj) {
-    return _.isNumber(obj) && obj !== +obj;
+    return _.isNumber(obj) && obj != +obj;
   };
 
   // Is a given value a boolean?
