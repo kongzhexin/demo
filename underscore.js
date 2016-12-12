@@ -37,9 +37,9 @@
 
   // Create a safe reference to the Underscore object for use below.
   var _ = function(obj) {
-    if (obj instanceof _) return obj;
-    if (!(this instanceof _)) return new _(obj);
-    this._wrapped = obj;
+    if (obj instanceof _) return obj;               //如果是_对象实例，则直接返回
+    if (!(this instanceof _)) return new _(obj);    // 如果不是_对象，则创建
+    this._wrapped = obj;                            //new _() 给实例添加属性_wrapped
   };
 
   // Export the Underscore object for **Node.js**, with
@@ -51,7 +51,7 @@
     }
     exports._ = _;
   } else {
-    root._ = _;
+    root._ = _;                //this window 
   }
 
   // Current version.
@@ -60,6 +60,9 @@
   // Internal function that returns an efficient (for current engines) version
   // of the passed-in callback, to be repeatedly applied in other Underscore
   // functions.
+  //无context直接返回函数func
+  //有context 无 argcount  为3    经典迭代  value index conllection
+  // argcount 控制传递几个参数而已
   var optimizeCb = function(func, context, argCount) {
     if (context === void 0) return func;
     switch (argCount == null ? 3 : argCount) {
@@ -902,6 +905,7 @@
   // ----------------
 
   // Keys in IE < 9 that won't be iterated by `for key in ...` and thus missed.
+  // IE 9以下的bug 非可枚举属性重写，迭代不到
   var hasEnumBug = !{toString: null}.propertyIsEnumerable('toString');
   var nonEnumerableProps = ['constructor', 'valueOf', 'isPrototypeOf', 'toString',
                       'propertyIsEnumerable', 'hasOwnProperty', 'toLocaleString'];
@@ -912,6 +916,8 @@
 
     while (nonEnumIdx--) {
       var prop = nonEnumerableProps[nonEnumIdx];
+      //var obj ={constructor:Object}   obj.constructor = Object.prototype.constructor
+
       if (prop === 'constructor' ? _.has(obj, prop) : prop in obj &&
         obj[prop] !== proto[prop] && !_.contains(keys, prop)) {
         keys.push(prop);
@@ -984,7 +990,7 @@
   };
 
   // Extend a given object with all the properties in passed-in object(s).
-  _.extend = createAssigner(_.keysIn);
+  _.extend = createAssigner(_.keysIn);  //获取 所有的key 包括原型链继承的
 
   // Assigns a given object with all the own properties in the passed-in object(s)
   // (https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object/assign)

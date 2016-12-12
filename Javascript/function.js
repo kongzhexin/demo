@@ -30,8 +30,19 @@ function sub (a,b){
 sub.bind(o,5,4)(); //sub.bind(o)(5,4);
 //---------------------------------------------------------------------------------------------------
 //经典闭包 返回函数
-var createAssigner = function(func,args){
+var createAssigner = function(func){
     return function(obj){
-        return obj
+        var length =arguments.length;
+        if(length <2||obj ==null) return obj;
+        for(var index= 0;index <length; index++){
+            var source = arguments[index],
+                keys = func(source),
+                l = keys.length;
+            for(var i =0 ;i<l ;i++){
+                 var key = keys[i];
+                obj[key] = source[key];
+            }
+        }
+        return obj;
     }
 }
