@@ -10,15 +10,29 @@ _.isObject = function (obj) {
     var type = typeof obj
     return type === 'function' || type === 'object' &&  !  ! obj
 }
-
+//对象（自身） 数组 string 是否空
+_.isEmpty = function (obj) {
+    if(obj ==null) return true;
+    if(_.isArray(obj)||_.isString(obj)||_.isObject(obj)) 
+    return _.keys(obj).length === 0;
+}
 
 _.isNumber = function (obj) {
     return Object.prototype.toString.call(obj).slice(8, -1) === 'Number'
 }
 
 _.each = function(obj, iteratee, context) {
-    
+    if(obj == null) return obj;
+    var i ,length
 }
+
+ _.each(['Arguments', 'Function', 'String', 'Number', 'Date', 'RegExp', 'Error', 'Symbol', 'Map', 'WeakMap', 'Set', 'WeakSet'], function(name) {
+    _['is' + name] = function(obj) {
+      return toString.call(obj) === '[object ' + name + ']';
+    };
+  });
+
+
 _.has = function (obj, key) {
     return obj != null && obj.hasOwnProperty(key)
 }
@@ -86,3 +100,12 @@ _.pairs =function(obj){
     }
     return pairs;
 }
+
+_.random =function(min,max){
+    if(max == null){
+        max =min;
+        min =0;
+    }
+    return  Math.floor(min +Math.random()*(max-min+1))
+}
+
