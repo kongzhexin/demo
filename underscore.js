@@ -524,6 +524,9 @@
   };
 
   // Internal implementation of a recursive `flatten` function.
+  //input展开的数组  shallow false 深度展开 
+  //shallow  strict true  过滤不是数组
+  //output 
   var flatten = function(input, shallow, strict, output) {
     output = output || [];
     var idx = output.length;
@@ -921,19 +924,21 @@
 
   // Returns a function that is the composition of a list of functions, each
   // consuming the return value of the function that follows.
+  //var a=_.compose(f,g,h)(arg)      a=f(g(h(arg)))
   _.compose = function() {
     var args = arguments;
     var start = args.length - 1;
     return function() {
-      var i = start;
-      var result = args[start].apply(this, arguments);
+      var i = start;                                       //返回一个函数
+      var result = args[start].apply(this, arguments);    //需要传参 
       while (i--) result = args[i].call(this, result);
       return result;
     };
   };
 
   // Returns a function that will only be executed on and after the Nth call.
-  _.after = function(times, func) {
+  //调用n-1次后开始执行(包括第n次)    闭包 times变量 计数
+  _.after = function(times, func) {                  
     return function() {
       if (--times < 1) {
         return func.apply(this, arguments);
@@ -942,6 +947,8 @@
   };
 
   // Returns a function that will only be executed up to (but not including) the Nth call.
+  //执行n -1次之后不再执行
+
   _.before = function(times, func) {
     var memo;
     return function() {
@@ -1412,11 +1419,12 @@
       return shallowProperty(path);
     }
     return function(obj) {
-      return deepGet(obj, path);       //深度獲取屬性函數
+      return deepGet(obj, path);       //獲取屬性函數 path 為數組或者單個的值 
     };
   };
 
   // Generates a function for a given object that returns a given property.
+  //與 _.property 傳參順序不一樣 
   _.propertyOf = function(obj) {
     if (obj == null) {
       return function(){};
@@ -1628,8 +1636,8 @@
       var func = _[name] = obj[name];
       _.prototype[name] = function() {
         var args = [this._wrapped];
-        push.apply(args, arguments);
-        return chainResult(this, func.apply(_, args));
+        push.apply(args, arguments);              //_(3).times() 3會當參數傳遞下去
+        return chainResult(this, func.apply(_, args));  //函數先執行 ，返回鏈式的結果
       };
     });
     return _;

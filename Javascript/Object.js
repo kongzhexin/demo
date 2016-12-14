@@ -109,3 +109,6 @@ _.random =function(min,max){
     return  Math.floor(min +Math.random()*(max-min+1))
 }
 
+_.times =function(n,iteratee,context){
+    
+}

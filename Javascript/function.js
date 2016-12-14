@@ -66,3 +66,24 @@ var flatten = function(input,shallow,strict,startIndex){
         return output;
     }
 }
+
+_.compose = function (){
+    var args = arguments;
+    var start = args.length -1;
+    var result ;
+    return function(){    
+        var result = args[start].call(this,arguments)    //需要传参
+         for(var i= start;i>0;i--){
+            result = args[i].call(this,result)
+        }
+        return result
+    }
+}
+
+_.after =function(times , func){
+    return function(){
+        if(--times<1){
+            return func.call(this,arguments)
+        }
+    }
+}

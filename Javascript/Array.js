@@ -33,4 +33,14 @@ var a =[1,23,4,5,6,'23','6',5]
 var ans =unique(a);
 console.log(ans)
 //---------------------------------------------------------------------------------
-//indexof
+//
+
+
+_.chunk = function(array, count){
+    var result =[];
+    var length = array.length;
+    while(i<length){
+        result.push( Array.prototype.slice.call(array,i,i+=count))
+    }
+    return result;
+}
