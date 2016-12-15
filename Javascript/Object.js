@@ -108,7 +108,12 @@ _.random =function(min,max){
     }
     return  Math.floor(min +Math.random()*(max-min+1))
 }
+//undefined string number boolean   null 
+//object  function 
+_.isEqual =function(a,b){
+    if(a === b)  return  a!==0 || 1/a === 1/b;   //防止0 === -0     1/0 = Infinity
+    if(a == null||b ==null)  return false;
+    if(a!==a) return b!==b;
 
-_.times =function(n,iteratee,context){
-    
 }
+

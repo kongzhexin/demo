@@ -87,3 +87,12 @@ _.after =function(times , func){
         }
     }
 }
+
+_.before = function (times , func){
+    return function (){
+        if(--times >1){
+            return func.call(this,arguments)
+        }
+        if(times <=1) func =null;
+    }
+}

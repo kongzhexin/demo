@@ -716,6 +716,7 @@
   // Generate an integer Array containing an arithmetic progression. A port of
   // the native Python `range()` function. See
   // [the Python documentation](http://docs.python.org/library/functions.html#range).
+  // 生成一个以start与stop的数组， 间隔为step： 
   _.range = function(start, stop, step) {
     if (stop == null) {
       stop = start || 0;
@@ -737,6 +738,7 @@
 
   // Split an **array** into several arrays containing **count** or less elements
   // of initial array.
+  // 分片函数
   _.chunk = function(array, count) {
     if (count == null || count < 1) return [];
 
@@ -764,6 +766,7 @@
   // Create a function bound to a given object (assigning `this`, and arguments,
   // optionally). Delegates to **ECMAScript 5**'s native `Function.bind` if
   // available.
+  //restArgs 为es6 ...arg 参数放进一个数组
   _.bind = restArgs(function(func, context, args) {
     if (!_.isFunction(func)) throw new TypeError('Bind must be called on a function');
     var bound = restArgs(function(callArgs) {
@@ -1193,14 +1196,17 @@
   eq = function(a, b, aStack, bStack) {
     // Identical objects are equal. `0 === -0`, but they aren't identical.
     // See the [Harmony `egal` proposal](http://wiki.ecmascript.org/doku.php?id=harmony:egal).
-    if (a === b) return a !== 0 || 1 / a === 1 / b;
-    // `null` or `undefined` only equal to itself (strict comparison).
-    if (a == null || b == null) return false;
+    if (a === b) return a !== 0 || 1 / a === 1 / b; //基本类型过滤  未处理NaN  0===-0
+    // `null` or `undefined` only equal to itself (strict comparison). 
+    if (a == null || b == null) return false;    //第一个if 条件已经过滤了null===null 情况
     // `NaN`s are equivalent, but non-reflexive.
     if (a !== a) return b !== b;
     // Exhaust primitive checks
     var type = typeof a;
+    //a 为基本类型  b 为函数或者基本类型  返回 false
     if (type !== 'function' && type !== 'object' && typeof b != 'object') return false;
+
+    //a为对象  b为对象
     return deepEq(a, b, aStack, bStack);
   };
 
