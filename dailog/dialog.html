@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="http://cdn.bootcss.com/jquery/2.2.3/jquery.min.js"></script>
+    <script src='./layer.js'></script>
+    <script src='./utility.js'></script>
+</head>
+
+<body>
+    <input type="button"></input>
+    <input  id = 'keyup' ></input>
+
+    <script>
+        $("input[type=button]").click(function(){
+            // dialog.warn("hello");
+            // var a=layer.open({
+            // title: '在线调试'
+            // ,content: '可以填写任意的layer代码'
+            // });     
+           // layer.title('1111')
+           setTimeout(function(){
+               console.log('index:'+layer.index)
+ var d = dialog({
+                  //  id :'1',
+                    title: '测试',
+                    content: $('#keyup'),
+                    okValue: 'queding',
+                    width: 500,
+                    height: 400,
+                    shade:0.3,
+                    onshow: function(){
+                        console.log(0)
+                    },
+                    onclose: function () {
+                        console.log(123)
+                    },
+                    ok: function () {
+                            console.log(456)
+                        //d.close().remove();
+                        return true    
+                    },
+                    cancelValue: 'quxiao',
+                    cancel: function () {
+                    //    d.close().remove();
+                    console.log(789)
+                    
+                    }
+                });
+           },1000)
+               
+            
+        
+    })
+            
+         $("#keyup").on('click',function(){
+            console.log(123456789)
+            //dialog.warn('11111');
+            setTimeout(function(){
+ var d = dialog({
+                 //   id :'2',
+                    title: '测试',
+                    content:'sdfsdfsdfsdf',
+                    okValue: 'queding',
+                    width: 500,
+                    height: 400,
+                    shade:0.3,
+                    onshow: function(){
+                        console.log(0)
+                    },
+                    onclose: function () {
+                        console.log(123)
+                    },
+                    ok: function () {
+                            console.log(456)
+                        //d.close().remove();
+                        return true    
+                    },
+                    cancelValue: 'quxiao',
+                    cancel: function () {
+                    //    d.close().remove();
+                    console.log(789)
+                    
+                    }
+                });
+            },1000)
+              
+        })
+    </script>
+</body>
+
+</html>
