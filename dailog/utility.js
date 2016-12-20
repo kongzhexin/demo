@@ -1,36 +1,50 @@
 (function (layer) {
     window.dialog = function(opts){
-
-        //只考虑 界面有两个按钮【确定】【取消】的情况
-        var defaults ={
-            id:opts.id||'',                         //
-            type: opts.type||1,                     //页面层
-            shade:opts.shade||0,
-            shadeClose:opts.shadeClose||false,
-            maxmin :opts.maxmin||false,
-            fixed:opts.fixed||true,
-            scrollbar :opts.scrollbar||true,
-            btnAlign:opts.btnAlign||'c',            //与文档默认值不同 改为居中
-            closeBtn:opts.closeBtn||1,
-            resize :opts.resize||false,
-            area: [opts.width? opts.width+'px':'',opts.height?opts.height+'px':''],
-            title:opts.title,
-            skin:opts.skin||'',
-            content: opts.content,
-            success:opts.onshow||null,
-            btn: [opts.okValue,opts.cancelValue] ,
-            yes: function(index){
-                var returnVal = opts.ok();
-                returnVal !==false&& layer.close(index);
-            },
-          //  cancel:opts.cancel||null,         //右上角关闭按钮
-            cancel: function(){                 //取消按钮 
-                opts.cancel();
-                opts.onclose&&opts.onclose();
-            },
-            end:opts.end||null,
+        if(typeof opts.content ==='string'){
+            var defaults={
+                title:opts.title,
+                btn: [opts.okValue,opts.cancelValue||''] 
+            };
+            layer.confirm(opts.content, defaults, function(index){
+                opts.ok();
+                layer.close(index);
+            });
+        }else{
+            //只考虑 界面有两个按钮【确定】【取消】的情况
+            var defaults ={
+                id:opts.id||'',                         //
+                type: opts.type||1,                     //页面层
+                shade:opts.shade||0.3,
+                shadeClose:opts.shadeClose||false,      //点击遮罩关闭
+                maxmin :opts.maxmin||false,             //最大小化
+                fixed:opts.fixed||true,                 //固定
+                scrollbar :opts.scrollbar||true,        //是否滚动条
+                btnAlign:opts.btnAlign||'c',            //与文档默认值不同 改为居中
+                closeBtn:opts.closeBtn||1,              //是否显示右上关闭按钮
+                resize :opts.resize||false,             //可以拖拽拉大
+                area: [opts.width? opts.width+'px':'',opts.height?opts.height+'px':''],
+                maxWidth:800,                           //默认时最大宽
+                title:opts.title,
+                skin:opts.skin||'',
+                content: opts.content,
+                success:opts.onshow||null,
+                btn: [opts.okValue,opts.cancelValue] ,
+                yes: function(index){
+                    var returnVal = opts.ok();
+                    returnVal !==false&& layer.close(index);
+                },
+                cancel: function(){                 //右上角关闭按钮与取消按钮 
+                    opts.cancel();
+                    opts.onclose&&opts.onclose();
+                },
+                btn2:function(){
+                    opts.cancel();
+                    opts.onclose&&opts.onclose();
+                },
+                end:opts.end||null,
+            }
+            return layer.open(defaults);
         }
-        return layer.open(defaults);
     }
 
     dialog.info = function (msg, time) {
